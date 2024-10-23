@@ -1,8 +1,9 @@
-import { LoginRealizado } from './LoginRealizado';
+import { Link } from 'react-router-dom';
+import { LoginRealizado } from './LoginRealizado.js';
 import { useRef, useState, useEffect, useContext} from 'react';
-import AuthContext from '../context/AuthProvider';
+import AuthContext from '../../context/AuthProvider.js';
 
-import axios from './../api/axios';
+import axios from '../../api/axios.js';
 const LOGIN_URL = '/auth/generateToken';
 
 export const Login = () => {
@@ -38,7 +39,6 @@ export const Login = () => {
                 }
             );
             console.log(JSON.stringify(response?.data));
-            // console.log(JSON.stringify(response));
             const accessToken = response?.data?.accessToken;
             const roles = response?.data?.roles;
             setAuth({user, password, roles, accessToken});
@@ -86,13 +86,13 @@ export const Login = () => {
                             value={password}
                             required
                         />
-                        <button>Sign In</button>
+                        <button>Ingresar</button>
                     </form>
                     <p>
                         ¿Necesitas una cuenta? <br />
                         <span className="line">
                             {/*router link a página de Registro*/}
-                            <a href="#">Sign Up</a>
+                            <Link to="register">Registrarse</Link>
                         </span>
                     </p>
                 </section>
