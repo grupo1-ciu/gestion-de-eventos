@@ -1,6 +1,7 @@
 import { Navbar } from "../navbar/Navbar"
 
-export const Home = () => {
+
+export const Inscripciones = () => {
     return(
         <Navbar />
     )
