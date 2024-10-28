@@ -1,46 +1,46 @@
-import { FormEvent, useEffect, useRef, useState } from "react"
+import { FormEvent, useEffect, useRef } from "react"
 
-import axios from '../../api/axios.js';
 
-export const Registro = () => {
-    const userNameRef = useRef<HTMLInputElement>(null);
-    
+import { CampoFormulario } from "../formulario/CampoFormulario.js";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-    const [ userName, setUserName ] = useState('');
-    const [ userLastName, setUserLastName ] = useState('');
-    const [ email, setEmail ] = useState('');
-    const [ password, setPasword ] = useState('');
+export const Registro = () => { 
+    const nombreRef = useRef<HTMLInputElement>(null);
+    const apellidoRef = useRef<HTMLInputElement>(null);
+    const emailRef = useRef<HTMLInputElement>(null);
+    const passwordRef = useRef<HTMLInputElement>(null);
+
+    const navigate = useNavigate();
 
     useEffect( () => {
-        userNameRef.current?.focus();
+        nombreRef.current?.focus();
     }, []);
 
-    const REGISTER_URL = "/auth/addNewUser";
+    const REGISTER_URL = "http://localhost:8080/eventos/auth/usuarios";
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         try{
             const response = await axios.post(REGISTER_URL,
                 JSON.stringify({
-                    nombre: userName,
-                    apellido: userLastName,
-                    email,
-                    password
+                    nombre: nombreRef.current?.value,
+                    apellido: apellidoRef.current?.value,
+                    email: emailRef.current?.value,
+                    password: passwordRef.current?.value
                 }),
                 {
-                    headers : {
-                        'Content-Type' : 'application/json'
+                    headers: {
+                         'Content-Type': 'application/json'
                     },
                     withCredentials: true
                 }
             );
-            setUserName('');
-            setUserLastName('');
-            setEmail('');
-            setPasword('');
+            if(response.status === 200) {
+                navigate("/");
+            }
         } catch (err) {
-            console.log('Respuesta de servidor con error: ' + err);
-            
+            console.log('Respuesta de servidor con error: ' + err);  
         }
         
     }
@@ -48,22 +48,10 @@ export const Registro = () => {
     return (
         <>
             <form onSubmit={handleSubmit}>
-                <div className="mb-3">
-                    <label htmlFor="exampleInputName" className="form-label">Nombre</label>
-                    <input type="text" className="form-control" id="exampleInputName1" aria-describedby="nameHelp" ref={userNameRef} value={userName} onChange={(e) => setUserName(e.target.value)} required/>
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="exampleInputLastName" className="form-label">Apellido</label>
-                    <input type="text" className="form-control" id="exampleInputLastName1" aria-describedby="lastNamelHelp" value={userLastName} onChange={(e) => setUserLastName(e.target.value)} required/>
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="exampleInputEmail1" className="form-label">Email</label>
-                    <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="ejemplo@email.com" value={email} onChange={(e) => setEmail(e.target.value)} required/>
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
-                    <input type="password" className="form-control" id="exampleInputPassword1" value={password} onChange={(e) => setPasword(e.target.value)} required/>
-                </div>
+                <CampoFormulario labelContent="Nombre" inputRef={nombreRef} inputType="text" required/>
+                <CampoFormulario labelContent="Apellido" inputRef={apellidoRef} inputType="text" required />
+                <CampoFormulario labelContent="Email" inputRef={emailRef} inputType="email" required />
+                <CampoFormulario labelContent="Contraseña" inputRef={passwordRef} inputType="password" required />
                 <button type="submit" className="btn btn-primary">Registrarme</button>
             </form>
         </>
