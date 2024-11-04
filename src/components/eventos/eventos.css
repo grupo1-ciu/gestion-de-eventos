@@ -1,0 +1,6 @@
+.eventos-container {
+    display: flex;
+    align-items: stretch;
+    flex-wrap: wrap;
+    padding: 4px;
+}

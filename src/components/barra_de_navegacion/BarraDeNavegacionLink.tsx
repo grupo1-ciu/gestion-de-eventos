@@ -4,7 +4,7 @@ type NavbarLinkProps = {
     linkHref: string;
 }
 
-export const NavbarLink: React.FC<NavbarLinkProps> = ({ linkContent, linkHref }) => {
+export const BarraDeNavegacionLink: React.FC<NavbarLinkProps> = ({ linkContent, linkHref }) => {
     return (
         <a className={"nav-link " + (location.pathname === linkHref? "active" : "")} href={linkHref}>{linkContent}</a>
     )

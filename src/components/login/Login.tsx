@@ -13,6 +13,7 @@ export const Login = () => {
     const handleLoginSuccess = (userCredential: UserCredential) => {
         setAuth(userCredential);
         setSuccess(true);
+        sessionStorage.setItem('user', JSON.stringify(userCredential));
     };
 
     return(
