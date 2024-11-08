@@ -33,8 +33,9 @@ export const LoginFormulario: React.FC<LoginFormularioProps> = ({ onSuccess }) =
         const apellido = response?.data?.apellido;
         const token = response?.data?.token;
         const roles = response?.data?.roles;
+        const email = response?.data?.email;
         
-        onSuccess({nombre, apellido, roles, token});
+        onSuccess({nombre, apellido, roles, token, email});
         if(response.status === 200){
             navigate("/inscripciones");
         }
