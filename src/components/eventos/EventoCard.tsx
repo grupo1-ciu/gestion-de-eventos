@@ -11,7 +11,7 @@ export const EventoCard: React.FC<EventoProps> = ({evento}) => {
             <div className="card-body">
                 <h5 className="card-title">{evento.descripcion}</h5>
                 <p className="card-text">{evento.sala}</p>
-                <a href="#" className="btn btn-primary">Inscribirse</a>
+                <a href="#" className="btn btn-primary">Más info</a>
             </div>
         </div>
     )

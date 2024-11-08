@@ -1,8 +1,12 @@
 import eventosApi from "./EventosApi";
 
-export const listarInscripciones = async () => {
-    const INSCRIPCIONES_URL = '/inscripciones';
-    const response = await eventosApi.post(INSCRIPCIONES_URL);
-    console.log(response.data);
-    return response;
-}
+export const listarInscripcionesPorEmail = async (email: string) => {
+  const INSCRIPCIONES_URL = "/inscripciones/" + email;
+
+  const response = await eventosApi.get(INSCRIPCIONES_URL, {
+    withCredentials: true,
+  });
+
+  console.log(response.data);
+  return response.data;
+};

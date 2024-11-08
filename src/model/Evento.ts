@@ -1,5 +1,9 @@
 export type Evento = {
-    descripcion: string,
-    sala: string,
-    capacidad: number
+    id: string;
+    descripcion: string;
+    sala: string;
+    capacidad: number;
+    horaInicio: string;
+    fechaEvento: string;
+    tipoEvento: string;
 }
