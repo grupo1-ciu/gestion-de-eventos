@@ -2,8 +2,8 @@ import { FormEvent, useEffect, useRef } from "react"
 
 
 import { CampoFormulario } from "../formulario/CampoFormulario.js";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { registro } from "../../api/Registro.js";
 
 export const Registro = () => { 
     const nombreRef = useRef<HTMLInputElement>(null);
@@ -17,25 +17,19 @@ export const Registro = () => {
         nombreRef.current?.focus();
     }, []);
 
-    const REGISTER_URL = "http://localhost:8080/eventos/auth/usuarios";
-
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
+
+        const user = {
+            nombre: nombreRef.current?.value,
+            apellido: apellidoRef.current?.value,
+            email: emailRef.current?.value,
+            password: passwordRef.current?.value
+        }
+
         try{
-            const response = await axios.post(REGISTER_URL,
-                JSON.stringify({
-                    nombre: nombreRef.current?.value,
-                    apellido: apellidoRef.current?.value,
-                    email: emailRef.current?.value,
-                    password: passwordRef.current?.value
-                }),
-                {
-                    headers: {
-                         'Content-Type': 'application/json'
-                    },
-                    withCredentials: true
-                }
-            );
+            //TODO: Refactorizar para enviar el user como objeto en vez de pasarle los atributos por separado.
+            const response = await registro(user.nombre!, user.apellido!, user.email!, user.password!);
             if(response.status === 200) {
                 navigate("/");
             }

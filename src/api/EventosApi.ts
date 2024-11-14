@@ -13,9 +13,8 @@ eventosApi.interceptors.request.use(
             const userData = JSON.parse(userDataRaw);
             const token = userData.token;
             console.log(token);
-            if(token && !config.url?.includes('generateToken')){
+            if(token && !(config.url?.includes('generateToken') || config.url?.includes('usuarios'))){
                 config.headers.Authorization = 'Bearer ' + token;
-                
             }
         }
         config.headers['Content-Type'] = 'application/json';
