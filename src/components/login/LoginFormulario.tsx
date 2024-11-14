@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, FormEvent } from "react";
 import { CampoFormulario } from "../formulario/CampoFormulario";
 import { UserCredential } from "../../model/UserCredential";
 import { useNavigate } from "react-router-dom";
@@ -12,7 +12,7 @@ export const LoginFormulario: React.FC<LoginFormularioProps> = ({ onSuccess }) =
 
     const usernameRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
-    const errRef = useRef();
+    const errRef = useRef<HTMLInputElement>(null);
     const navigate = useNavigate();
     const [errMessage, setErrMessage] = useState('');
 
@@ -21,20 +21,20 @@ export const LoginFormulario: React.FC<LoginFormularioProps> = ({ onSuccess }) =
         setErrMessage('');
     }, []);
 
-    const handleSubmit = async (e: Event) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const username = usernameRef.current?.value;
         const password = passwordRef.current?.value;
         const response = await login(username!, password!);
 
         console.log(JSON.stringify(response?.data));
-        
+
         const nombre = response?.data?.nombre;
         const apellido = response?.data?.apellido;
         const token = response?.data?.token;
         const roles = response?.data?.roles;
         const email = response?.data?.email;
-        
+
         onSuccess({nombre, apellido, roles, token, email});
         if(response.status === 200){
             navigate("/inscripciones");

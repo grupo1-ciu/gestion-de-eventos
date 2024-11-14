@@ -1,9 +1,19 @@
-import { createContext, useState } from "react";
+import React, { createContext, useState } from "react";
+import { UserCredential } from '../model/UserCredential';
 
-const AuthContext = createContext({});
+export interface AuthContextValues {
+    auth: UserCredential | null;
+    setAuth: (value: UserCredential) => void;
+}
 
-export const AuthProvider = ({ children }) => {
-    const [auth, setAuth] = useState({});
+
+const AuthContext = createContext<AuthContextValues>({
+    auth: null,
+    setAuth: (_: UserCredential) => {}
+});
+
+export const AuthProvider : React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
+    const [auth, setAuth] = useState<UserCredential | null>(null);
 
     return(
         <AuthContext.Provider value={{auth, setAuth}} >
