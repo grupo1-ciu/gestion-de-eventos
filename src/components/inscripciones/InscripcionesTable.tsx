@@ -2,10 +2,11 @@ import { Inscripcion } from "../../model/Inscripcion"
 import { InscripcionRow } from "./InscripcionRow"
 
 type inscripcionesListProps = {
-    inscripciones: Inscripcion[]   
+    inscripciones: Inscripcion[];
+    onCancel : ((idInscripcion:string) => void)
 }
 
-export const InscripcionesTable: React.FC<inscripcionesListProps> = ({inscripciones}) => {
+export const InscripcionesTable: React.FC<inscripcionesListProps> = ({inscripciones, onCancel}) => {
     return(
         <>
             <table className="table table-hover">
@@ -21,7 +22,7 @@ export const InscripcionesTable: React.FC<inscripcionesListProps> = ({inscripcio
                 <tbody>
                 {
                     inscripciones.map( (inscripcion: Inscripcion) => (
-                        <InscripcionRow key={inscripcion.id} inscripcion={inscripcion}/>
+                        <InscripcionRow key={inscripcion.id} inscripcion={inscripcion} onCancel={onCancel}/>
                     ))
                 }
                 </tbody>

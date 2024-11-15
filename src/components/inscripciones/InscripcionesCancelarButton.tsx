@@ -5,21 +5,21 @@ import './InscripcionesCancelarButton.css';
 
 type InscripcionesCancelarButtonProps = {
     idInscripcion: string;
+    onCancel: ((idInscripcion: string) => void);
 }
 
-export const InscripcionesCancelarButton: React.FC<InscripcionesCancelarButtonProps> = ({idInscripcion}) => {
+export const InscripcionesCancelarButton: React.FC<InscripcionesCancelarButtonProps> = ({idInscripcion, onCancel}) => {
 
-    // const handleCancel = async (idEvento) => {
-    //     const response = await cancelarInscripcion(idEvento, "CANCELADA");
-    //     return response;
-    // }
+    const handleCancel = async (idInscripcion: string) => {
+        onCancel(idInscripcion);
+    }
 
     return(
         <button 
-            type="button" 
+            type="button"
             className="btn btn-danger"
             title="Cancelar"
-            // onClick={handleCancel(idEvento)}
+            onClick={() => handleCancel(idInscripcion)}
         >
             <FontAwesomeIcon icon={faTrashCan}/>
         </button>
