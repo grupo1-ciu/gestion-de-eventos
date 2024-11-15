@@ -1,0 +1,8 @@
+.btn-danger {
+    transition-duration: 0.3s;
+    border-color: grey;
+}
+
+.btn-danger:hover {
+    background-color: red;
+}

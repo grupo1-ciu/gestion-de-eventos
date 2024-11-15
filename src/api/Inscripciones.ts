@@ -7,6 +7,20 @@ export const listarInscripcionesPorEmail = async (email: string) => {
     withCredentials: true,
   });
 
-  console.log(response.data);
   return response.data;
 };
+
+export const cancelarInscripcion = async (idInscripcion: string) => {
+  const INSCRIPCIONES_URL = "/inscripciones";
+
+  const inscripcion = {
+    id : idInscripcion,
+    estadoInscripcion : {
+      estado : 'CANCELADA'
+    },
+  };
+
+  const response = await eventosApi.put(INSCRIPCIONES_URL, inscripcion);
+
+  return response;
+}
