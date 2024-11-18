@@ -33,7 +33,13 @@ export const Inscripciones = () => {
     return(
         <>
             <BarraDeNavegacion />
-            <InscripcionesTable inscripciones={inscripciones} onCancel={handleCancelarInscripcion}/>
+            {inscripciones.length === 0 ? (
+                <div>
+                    <p>No tenés inscripciones, dirigite a eventos para inscribirte a uno!</p>
+                </div>
+            ) : (
+                <InscripcionesTable inscripciones={inscripciones} onCancel={handleCancelarInscripcion}/>
+            )}
         </>
     )
 }
