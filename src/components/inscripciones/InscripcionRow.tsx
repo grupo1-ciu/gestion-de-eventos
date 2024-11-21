@@ -16,7 +16,7 @@ export const InscripcionRow: React.FC<inscripcionRowProps> = ({inscripcion, onCa
                 <td>{inscripcion.evento.fechaEvento}</td>
                 <td>{inscripcion.evento.horaInicio}</td>
                 <td>{inscripcion.estadoInscripcion.estado}</td>
-                <InscripcionesCancelarButton idInscripcion={inscripcion.id} onCancel={onCancel}/>
+                <td><InscripcionesCancelarButton idInscripcion={inscripcion.id} onCancel={onCancel}/></td>
             </tr>
         </>
     )

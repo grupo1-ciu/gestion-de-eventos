@@ -4,6 +4,7 @@ import { FormEvent, useEffect, useRef } from "react"
 import { CampoFormulario } from "../formulario/CampoFormulario.js";
 import { useNavigate } from "react-router-dom";
 import { registro } from "../../api/Registro.js";
+import { LinkLogin } from "./LinkLogin.js";
 
 export const Registro = () => { 
     const nombreRef = useRef<HTMLInputElement>(null);
@@ -48,6 +49,7 @@ export const Registro = () => {
                 <CampoFormulario labelContent="Contraseña" inputRef={passwordRef} inputType="password" required />
                 <button type="submit" className="btn btn-primary">Registrarme</button>
             </form>
+            <LinkLogin />
         </>
         
     )

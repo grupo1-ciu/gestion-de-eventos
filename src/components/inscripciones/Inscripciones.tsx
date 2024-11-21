@@ -22,7 +22,6 @@ export const Inscripciones = () => {
         if (response.status === 200) {
             fetchInscripciones(email);
         }
-        
     }
     
 
@@ -33,7 +32,15 @@ export const Inscripciones = () => {
     return(
         <>
             <BarraDeNavegacion />
-            <InscripcionesTable inscripciones={inscripciones} onCancel={handleCancelarInscripcion}/>
+            {inscripciones.length === 0 ? (
+                <div>
+                    <p>No tenés inscripciones, dirigite a eventos para inscribirte a uno!</p>
+                </div>
+            ) : (
+                <div>
+                    <InscripcionesTable inscripciones={inscripciones} onCancel={handleCancelarInscripcion}/>
+                </div>
+            )}
         </>
     )
 }
