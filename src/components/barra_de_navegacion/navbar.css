@@ -1,0 +1,15 @@
+.navbar-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    margin-right: auto;
+    padding: 1px;
+}
+
+.nav-link {
+    margin: 4px;
+}
+
+.btn {
+    margin-right: 5px;
+}

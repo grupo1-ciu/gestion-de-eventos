@@ -20,7 +20,9 @@ export const Eventos = () => {
     return(
         <>
             <BarraDeNavegacion />
-            <EventosLista eventos={eventos}/>
+            <div>
+                <EventosLista eventos={eventos}/>
+            </div>
         </>
     )
 }

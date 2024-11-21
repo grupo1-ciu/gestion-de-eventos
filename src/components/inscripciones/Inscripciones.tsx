@@ -22,7 +22,6 @@ export const Inscripciones = () => {
         if (response.status === 200) {
             fetchInscripciones(email);
         }
-        
     }
     
 
@@ -38,7 +37,9 @@ export const Inscripciones = () => {
                     <p>No tenés inscripciones, dirigite a eventos para inscribirte a uno!</p>
                 </div>
             ) : (
-                <InscripcionesTable inscripciones={inscripciones} onCancel={handleCancelarInscripcion}/>
+                <div>
+                    <InscripcionesTable inscripciones={inscripciones} onCancel={handleCancelarInscripcion}/>
+                </div>
             )}
         </>
     )

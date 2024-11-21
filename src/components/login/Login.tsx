@@ -7,11 +7,14 @@ import { LinkRegistro } from './LinkRegistro.js';
 
 export const Login = () => {
 
-    const { setAuth } = useContext(AuthContext);
+    const {login, authenticated} = useContext(AuthContext);
+    // const { auth, setUserCredential } = useContext(AuthContext);
     const [success, setSuccess] = useState(false);
 
     const handleLoginSuccess = (userCredential: UserCredential) => {
-        setAuth(userCredential);
+        login(userCredential);
+        // setAuth(userCredential);
+        console.log(authenticated);
         setSuccess(true);
         sessionStorage.setItem('user', JSON.stringify(userCredential));
     };

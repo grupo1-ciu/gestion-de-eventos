@@ -3,6 +3,7 @@ import { CampoFormulario } from "../formulario/CampoFormulario";
 import { UserCredential } from "../../model/UserCredential";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../api/Login";
+import AuthContext from "../../context/AuthProvider";
 
 interface LoginFormularioProps {
     onSuccess: (userCredential: UserCredential) => void;
@@ -29,13 +30,17 @@ export const LoginFormulario: React.FC<LoginFormularioProps> = ({ onSuccess }) =
 
         console.log(JSON.stringify(response?.data));
         
-        const nombre = response?.data?.nombre;
-        const apellido = response?.data?.apellido;
-        const token = response?.data?.token;
-        const roles = response?.data?.roles;
-        const email = response?.data?.email;
+        const userCredentials: UserCredential = {
+            nombre: response?.data?.nombre,
+            apellido: response?.data?.apellido,
+            token: response?.data?.token,
+            roles: response?.data?.roles,
+            email: response?.data?.email,
+            isAuthenticated: true,
+        }
         
-        onSuccess({nombre, apellido, roles, token, email});
+        onSuccess(userCredentials);
+        
         if(response.status === 200){
             navigate("/inscripciones");
         }
