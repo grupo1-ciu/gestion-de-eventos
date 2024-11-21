@@ -4,7 +4,7 @@ import { EventosLista } from "./EventosLista"
 import { listarEventos } from "../../api/Eventos"
 
 
-export const Eventos = () => {
+export const EventosPagina = () => {
 
     const [ eventos, setEventos] = useState([]);
     
