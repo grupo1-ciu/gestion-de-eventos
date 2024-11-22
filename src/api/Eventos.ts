@@ -1,11 +1,19 @@
 import eventosApi  from "./EventosApi";
 
-export const listarEventos = async () => {
-    const EVENTOS_URL = '/eventos';
+const EVENTOS_URL = '/eventos';
 
+export const listarEventos = async () => {
     const response = await eventosApi.get(EVENTOS_URL,
         {
             withCredentials: true,
         });
+
+    console.log(response.data);
     return response.data;
+}
+
+export const buscarEvento = async (id: string) => {
+    const response = await eventosApi.get(EVENTOS_URL+'/'+ id);
+
+    return response;
 }

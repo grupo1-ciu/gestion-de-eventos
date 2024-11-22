@@ -4,3 +4,12 @@
     flex-wrap: wrap;
     padding: 4px;
 }
+
+.banner-evento {
+    height: 100px;
+    width: fit-content;
+}
+
+.evento-detalle-container {
+    color: whitesmoke;
+}
