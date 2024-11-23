@@ -26,6 +26,7 @@ export const EventoDetalle = () => {
 
     const handleInscripcion = async() => {
         const emailUsuario = userCredential.email;
+        
         const idEvento = id;
         try{
             await inscribirUsuarioAEvento(idEvento, emailUsuario);

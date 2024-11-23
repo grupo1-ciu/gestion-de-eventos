@@ -16,20 +16,21 @@ export const BarraDeNavegacion = () => {
 
     return(
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
-            <a className="navbar-brand" href="#">EventosTP</a>
-            <div className="navbar-nav">
+            <a className="navbar-brand">EventosTP</a>
+            <div className="navbar-nav container-fuild">
                 <BarraDeNavegacionLink linkContent="Inscripciones" linkHref="/inscripciones" />
                 <BarraDeNavegacionLink linkContent="Eventos" linkHref="/eventos"/>
-            </div>
-            <div>
-                <button 
-                    type="button" 
-                    className="btn btn-danger"
-                    onClick={handleLogout}
-                >
-                    Cerrar Sesión
-                </button>
+                <div className="container-btn">
+                    <button 
+                        type="button" 
+                        className="btn btn-danger"
+                        onClick={handleLogout}
+                    >
+                        Cerrar Sesión
+                    </button>
+                </div>
             </div>
         </nav>
+        
     )
 }

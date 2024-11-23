@@ -17,6 +17,7 @@ export const InscripcionesTable: React.FC<inscripcionesListProps> = ({inscripcio
                     <th scope="col">Fecha</th>
                     <th scope="col">Hora</th>
                     <th scope="col">Estado</th>
+                    <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
