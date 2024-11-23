@@ -2,12 +2,15 @@ import { useEffect, useState } from "react"
 import { BarraDeNavegacion } from "../barra_de_navegacion/BarraDeNavegacion"
 import { cancelarInscripcion, listarInscripcionesPorEmail } from "../../api/Inscripciones";
 import { InscripcionesTable } from "./InscripcionesTable";
+import { useNavigate } from "react-router-dom";
+// import './inscripciones.css'
 
 
 export const Inscripciones = () => {
 
     const [inscripciones, setInscripciones] = useState([]);
-    
+    const navigate = useNavigate();
+
     const userDataRaw = sessionStorage.getItem('user');
     const userData = JSON.parse(userDataRaw!);
     const email = userData.email;
@@ -23,6 +26,10 @@ export const Inscripciones = () => {
             fetchInscripciones(email);
         }
     }
+
+    const handleNavigate = () => {
+        navigate('/eventos');
+    }
     
 
     useEffect(()=>{
@@ -30,17 +37,24 @@ export const Inscripciones = () => {
     }, [email])
 
     return(
-        <>
+        <div className="container-fluid">
             <BarraDeNavegacion />
             {inscripciones.length === 0 ? (
-                <div>
-                    <p>No tenés inscripciones, dirigite a eventos para inscribirte a uno!</p>
+                <div className="container-mensaje">
+                    <h3>No tenés inscripciones</h3>
+                    <button
+                        type="button"
+                        onClick={handleNavigate}
+                        className="btn btn-lg btn-success"
+                        >
+                            Ir a eventos
+                    </button>
                 </div>
             ) : (
                 <div>
                     <InscripcionesTable inscripciones={inscripciones} onCancel={handleCancelarInscripcion}/>
                 </div>
             )}
-        </>
+        </div>
     )
 }

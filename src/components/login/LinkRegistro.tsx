@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 
 export const LinkRegistro = () => {
     return (
-        <>
+        <div className="container-sm w-25">
             <p>
                 ¿Necesitas una cuenta? <br />
                 <span className="line">
@@ -10,7 +10,7 @@ export const LinkRegistro = () => {
                     <Link to="register">Registrarse</Link>
                 </span>
             </p>
-        </>
+        </div>
         
     )
 }

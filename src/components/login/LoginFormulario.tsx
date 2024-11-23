@@ -47,7 +47,7 @@ export const LoginFormulario: React.FC<LoginFormularioProps> = ({ onSuccess }) =
     }
 
     return (
-        <section>
+        <div className="container-sm w-25">
             <p ref={errRef} className={errMessage ? "errmsg" : "offscreen"} aria-live="assertive">{errMessage}</p>
             <h1>Ingresar</h1>
             <form onSubmit={handleSubmit}>
@@ -55,7 +55,7 @@ export const LoginFormulario: React.FC<LoginFormularioProps> = ({ onSuccess }) =
                 <CampoFormulario inputRef={passwordRef} inputType="password" labelContent="password" required/>
                 <button className="btn btn-primary">Ingresar</button>
             </form>
-        </section>
+        </div>
     )
 }
 

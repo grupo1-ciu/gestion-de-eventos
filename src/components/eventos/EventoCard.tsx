@@ -7,7 +7,7 @@ type EventoProps = {
 
 export const EventoCard: React.FC<EventoProps> = ({evento}) => {
     return(
-        <div className="card" style={{width: 18 + 'rem', margin: 1}}>
+        <div className="card" style={{width: 18 + 'rem', margin: 2}}>
             <img src="teatro.jpg" className="card-img-top" alt="Teatro Colón" />
             <div className="card-body">
                 <h5 className="card-title">{evento.descripcion}</h5>
