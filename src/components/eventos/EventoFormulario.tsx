@@ -2,6 +2,7 @@ import { FormEvent, useEffect, useRef } from "react";
 import { CampoFormulario } from "../formulario/CampoFormulario.js";
 import { useNavigate } from "react-router-dom";
 import { crearEventos } from "../../api/Eventos.js";
+import "./evento_formulario.css";
 
 const CATEGORIAS_EVENTO = ["TALLER", "CONCIERTO", "CONFERENCIA", "EXPOSICION", "PROYECCION"];
 
@@ -29,7 +30,9 @@ export const EventoFormulario = () => {
             capacidad: parseInt(capacidadRef.current?.value || "0", 10),
             horaInicio: horaInicioRef.current?.value || "",
             fechaEvento: fechaEventoRef.current?.value || "",
-            tipoEvento: tipoEventoRef.current?.value || "",
+            tipoEvento: {
+                nombre: tipoEventoRef.current?.value || ""
+            },
         };
 
         try {
@@ -61,11 +64,3 @@ export const EventoFormulario = () => {
         </form>
     );
 };
-
-
-type CampoFormularioProps = {
-    labelContent : string,
-    inputType : string,
-    inputRef : React.RefObject<HTMLInputElement>,
-    required : boolean
-}

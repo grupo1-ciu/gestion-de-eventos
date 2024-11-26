@@ -1,3 +1,8 @@
+export type TipoEvento = {
+    nombre: string
+}
+
+
 export type Evento = {
     id: string;
     descripcion: string;
@@ -5,5 +10,5 @@ export type Evento = {
     capacidad: number;
     horaInicio: string;
     fechaEvento: string;
-    tipoEvento: string;
+    tipoEvento: TipoEvento;
 }
