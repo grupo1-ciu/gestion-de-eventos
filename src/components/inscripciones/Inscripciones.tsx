@@ -3,12 +3,14 @@ import { BarraDeNavegacion } from "../barra_de_navegacion/BarraDeNavegacion"
 import { cancelarInscripcion, listarInscripcionesPorEmail } from "../../api/Inscripciones";
 import { InscripcionesTable } from "./InscripcionesTable";
 import { useNavigate } from "react-router-dom";
-// import './inscripciones.css'
+import { TextoCarga } from "./TextoCarga";
+import './inscripciones.css'
 
 
 export const Inscripciones = () => {
 
     const [inscripciones, setInscripciones] = useState([]);
+    const [cargando, setCargando] = useState(true);
     const navigate = useNavigate();
 
     const userDataRaw = sessionStorage.getItem('user');
@@ -18,6 +20,7 @@ export const Inscripciones = () => {
     const fetchInscripciones = async (email: string) => {
         const inscripcionesResponse = await listarInscripcionesPorEmail(email);
         setInscripciones(inscripcionesResponse);
+        setCargando(false);
     }
 
     const handleCancelarInscripcion = async (idInscripcion: string) => {
@@ -39,7 +42,9 @@ export const Inscripciones = () => {
     return(
         <div className="container-fluid">
             <BarraDeNavegacion />
-            {inscripciones.length === 0 ? (
+            {cargando ? (
+                <TextoCarga />) : (
+            inscripciones.length === 0 && !cargando ? (
                 <div className="container-mensaje">
                     <h3>No tenés inscripciones</h3>
                     <button
@@ -54,7 +59,7 @@ export const Inscripciones = () => {
                 <div>
                     <InscripcionesTable inscripciones={inscripciones} onCancel={handleCancelarInscripcion}/>
                 </div>
-            )}
+            ))}
         </div>
     )
 }
