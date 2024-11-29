@@ -1,7 +1,7 @@
-import { Navbar } from "../navbar/Navbar"
+import { BarraDeNavegacion } from "../barra_de_navegacion/BarraDeNavegacion"
 
 export const Home = () => {
     return(
-        <Navbar />
+        <BarraDeNavegacion />
     )
 }
