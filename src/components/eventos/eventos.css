@@ -1,6 +1,22 @@
 .eventos-container {
     display: flex;
     align-items: stretch;
+    justify-content: center;
+    margin-top: 10px;
     flex-wrap: wrap;
-    padding: 4px;
+}
+
+.banner-evento {
+    height: 100px;
+    width: fit-content;
+}
+
+.evento-detalle-container {
+    color: whitesmoke;
+}
+
+.mensaje-container {
+    color: white;
+    font-weight: 800;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }

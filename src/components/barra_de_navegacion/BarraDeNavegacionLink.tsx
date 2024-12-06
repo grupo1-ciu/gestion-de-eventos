@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 
 type NavbarLinkProps = {
     linkContent: string;
@@ -6,6 +7,11 @@ type NavbarLinkProps = {
 
 export const BarraDeNavegacionLink: React.FC<NavbarLinkProps> = ({ linkContent, linkHref }) => {
     return (
-        <a className={"nav-link " + (location.pathname === linkHref? "active" : "")} href={linkHref}>{linkContent}</a>
+        <Link 
+            className={"nav-link " + (location.pathname === linkHref? "active" : "")} 
+            to={linkHref}
+        >
+            {linkContent}
+        </Link>
     )
 }
