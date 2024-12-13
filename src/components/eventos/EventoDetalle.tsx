@@ -1,55 +1,61 @@
 import { useContext, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { BarraDeNavegacion } from "../barra_de_navegacion/BarraDeNavegacion";
 import { buscarEvento } from "../../api/Eventos";
-import "./eventos.css"
+import "./eventos.css";
 import { inscribirUsuarioAEvento } from "../../api/Inscripciones";
 import { AuthContext } from "../../context/AuthContext";
 
-
 export const EventoDetalle = () => {
-    const id = window.location.pathname.substring(9);
-    const [evento, setEvento] = useState({});
+    const { id } = useParams<{ id: string }>();
+    const [evento, setEvento] = useState<any>({});
     const { userCredential } = useContext(AuthContext);
     const [mensaje, setMensaje] = useState('');
+    const navigate = useNavigate();
 
     const formatFecha = (fecha: string) => {
         const date = new Date(fecha);
         const splits = date.toLocaleString().split(',');
         return splits[0];
-    }
+    };
 
+    const fetchEvento = async (id: string) => {
+        try {
+            const eventoResponse = await buscarEvento(id);
+            setEvento(eventoResponse.data);
+        } catch (err) {
+            console.error("Error al obtener el evento:", err);
+        }
+    };
 
-    const fetchEvento = async(id: string) => {
-        const eventoResponse = await buscarEvento(id);
-        setEvento(eventoResponse.data);
-    }
-
-    const handleInscripcion = async() => {
+    const handleInscripcion = async () => {
         const emailUsuario = userCredential.email;
-        
-        const idEvento = id;
-        try{
-            await inscribirUsuarioAEvento(idEvento, emailUsuario);
+        try {
+            await inscribirUsuarioAEvento(id, emailUsuario);
             setMensaje('Inscripción exitosa!');
         } catch (err) {
-            if(err?.response?.status === 403) {
+            if (err?.response?.status === 403) {
                 setMensaje('Error en la inscripción');
             }
-            if(err?.response?.status === 409) {
+            if (err?.response?.status === 409) {
                 setMensaje(err?.response?.data);
             }
         }
-    }
+    };
 
-    useEffect(()=> {
+    const handleEditarEvento = () => {
+        navigate(`/eventos/editar/${id}`);
+    };
+
+    useEffect(() => {
         fetchEvento(id);
-    }, [id])
+    }, [id]);
 
-    return(
+    return (
         <>
             <BarraDeNavegacion />
             <div className="banner-evento">
-                <img className="background-image" src="/butacas.jpg" alt="Imagen de una fila de butacas"/>
+                <img className="background-image" src="/butacas.jpg" alt="Imagen de una fila de butacas" />
             </div>
             <div className="evento-detalle-container">
                 <h1>{evento.descripcion}</h1>
@@ -65,9 +71,16 @@ export const EventoDetalle = () => {
             >
                 Inscribirse
             </button>
+            <button
+                className="btn btn-secondary btn-lg"
+                type="button"
+                onClick={handleEditarEvento}
+            >
+                Editar Evento
+            </button>
             <div className="mensaje-container">
                 {mensaje === '' ? '' : <h4>{mensaje}</h4>}
             </div>
         </>
-    )
-}
+    );
+};

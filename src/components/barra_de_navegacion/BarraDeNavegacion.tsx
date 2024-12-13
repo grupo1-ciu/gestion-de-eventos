@@ -20,6 +20,7 @@ export const BarraDeNavegacion = () => {
             <div className="navbar-nav container-fuild">
                 <BarraDeNavegacionLink linkContent="Inscripciones" linkHref="/inscripciones" />
                 <BarraDeNavegacionLink linkContent="Eventos" linkHref="/eventos"/>
+                <BarraDeNavegacionLink linkContent="Crear Evento" linkHref="/crearEvento"/>
                 <div className="container-btn">
                     <button 
                         type="button" 

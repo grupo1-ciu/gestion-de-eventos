@@ -1,12 +1,12 @@
 import { FormEvent, useEffect, useRef } from "react";
 import { CampoFormulario } from "../formulario/CampoFormulario.js";
-import { useNavigate } from "react-router-dom";
-import { crearEventos } from "../../api/Eventos.js";
+import { useNavigate, useParams } from "react-router-dom";
+import { buscarEvento, editarEvento } from "../../api/Eventos.js";
 import "./evento_formulario.css";
 
 const CATEGORIAS_EVENTO = ["TALLER", "CONCIERTO", "CONFERENCIA", "EXPOSICION", "PROYECCION"];
 
-export const EventoFormulario = () => {
+export const FormularioEditarEvento = () => {
     const descripcionRef = useRef<HTMLInputElement>(null);
     const salaRef = useRef<HTMLInputElement>(null);
     const capacidadRef = useRef<HTMLInputElement>(null);
@@ -15,34 +15,53 @@ export const EventoFormulario = () => {
     const tipoEventoRef = useRef<HTMLSelectElement>(null);
 
     const navigate = useNavigate();
+    const { id } = useParams<{ id: string }>();
 
     useEffect(() => {
-        descripcionRef.current?.focus();
-    }, []);
+        const cargarEvento = async () => {
+            try {
+                const respuesta = await buscarEvento(id!);
+                const evento = respuesta.data;
+                if (evento) {
+                    descripcionRef.current!.value = evento.descripcion;
+                    salaRef.current!.value = evento.sala;
+                    capacidadRef.current!.value = evento.capacidad.toString();
+                    horaInicioRef.current!.value = evento.horaInicio;
+                    fechaEventoRef.current!.value = evento.fechaEvento;
+                    tipoEventoRef.current!.value = evento.tipoEvento.nombre;
+                }
+            } catch (err) {
+                console.error("Error al cargar el evento:", err);
+            }
+        };
+    
+        cargarEvento();
+    }, [id]);
+    
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-
+    
         const evento = {
-            id: "",
+            id: id || "",
             descripcion: descripcionRef.current?.value || "",
             sala: salaRef.current?.value || "",
             capacidad: parseInt(capacidadRef.current?.value || "0", 10),
             horaInicio: horaInicioRef.current?.value || "",
             fechaEvento: fechaEventoRef.current?.value || "",
             tipoEvento: {
-                nombre: tipoEventoRef.current?.value || ""
+                nombre: tipoEventoRef.current?.value || "",
             },
         };
-
+    
         try {
-            const nuevoEvento = await crearEventos(evento);
-            console.log("Evento creado:", nuevoEvento);
+            const eventoActualizado = await editarEvento(id!, evento);
+            console.log("Evento actualizado:", eventoActualizado);
             navigate("/eventos");
         } catch (err) {
-            console.error("Error al crear el evento:", err);
+            console.error("Error al editar el evento:", err);
         }
-    };
+    };    
 
     const handleGoHome = () => {
         navigate("/eventos");
@@ -67,7 +86,7 @@ export const EventoFormulario = () => {
                     options={CATEGORIAS_EVENTO}
                 />
                 <button type="submit" className="btn btn-primary">
-                    Crear Evento
+                    Guardar Cambios
                 </button>
             </form>
         </div>

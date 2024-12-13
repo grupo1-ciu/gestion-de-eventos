@@ -14,7 +14,17 @@ export const listarEventos = async () => {
 }
 
 export const crearEventos = async (evento: Evento): Promise<Evento> => {
-    const response = await eventosApi.post(EVENTOS_URL, evento, {
+    const CREAR_EVENTO_URL = '/eventos/crearEvento';
+    const response = await eventosApi.post(CREAR_EVENTO_URL, evento, {
+        withCredentials: true,
+    });
+    console.log(response.data);
+    return response.data;
+};
+
+export const editarEvento = async (id: string, evento: Evento): Promise<Evento> => {
+    const EDITAR_EVENTO_URL = `/eventos/editar/${id}`;
+    const response = await eventosApi.put(EDITAR_EVENTO_URL, evento, {
         withCredentials: true,
     });
     console.log(response.data);

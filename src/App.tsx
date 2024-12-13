@@ -2,12 +2,11 @@ import { Routes, Route } from 'react-router-dom';
 import { Login } from './components/login/Login'
 import { Registro } from './components/registro/Registro';
 import { Inscripciones } from './components/inscripciones/Inscripciones';
-import { Eventos } from './components/eventos/Eventos';
 import { EventoFormulario } from './components/eventos/EventoFormulario';
-import { HomeAdmin } from './components/home/HomeAdmin';
 import { EventosPagina } from './components/eventos/EventosPagina';
 import { Protected } from './Protected';
 import { EventoDetalle } from './components/eventos/EventoDetalle';
+import { FormularioEditarEvento } from './components/eventos/FormularioEditarEvento';
 
 function App() {
 
@@ -22,6 +21,7 @@ function App() {
           <Route path="/eventos" element={<EventosPagina />} />
           <Route path="eventos/:id" element={<EventoDetalle/>} />
           <Route path="/crearEvento" element={<EventoFormulario/>} />
+          <Route path="/eventos/editar/:id" element={<FormularioEditarEvento />} />
         </Route>
       </Routes>
     </>
