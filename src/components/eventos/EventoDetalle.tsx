@@ -5,6 +5,7 @@ import { buscarEvento } from "../../api/Eventos";
 import "./eventos.css";
 import { inscribirUsuarioAEvento } from "../../api/Inscripciones";
 import { AuthContext } from "../../context/AuthContext";
+import { BotonBorrarEvento } from "../botones/BotonBorrarEvento";
 
 export const EventoDetalle = () => {
     const { id } = useParams<{ id: string }>();
@@ -64,8 +65,8 @@ export const EventoDetalle = () => {
                 <h3>Lugar: {evento.sala}</h3>
                 <h3>Capacidad: {evento.capacidad} lugares</h3>
             </div>
-            <button 
-                className="btn btn-primary btn-lg me-2" 
+            <button
+                className="btn btn-primary btn-lg me-2"
                 type="button"
                 onClick={handleInscripcion}
             >
@@ -76,8 +77,12 @@ export const EventoDetalle = () => {
                 type="button"
                 onClick={handleEditarEvento}
             >
-                Editar Evento
+                Editar
             </button>
+            <BotonBorrarEvento
+                idEvento={id}
+                onMensaje={setMensaje}
+            />
             <div className="mensaje-container">
                 {mensaje === '' ? '' : <h4>{mensaje}</h4>}
             </div>
