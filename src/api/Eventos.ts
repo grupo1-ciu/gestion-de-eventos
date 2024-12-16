@@ -14,7 +14,7 @@ export const listarEventos = async () => {
 }
 
 export const crearEventos = async (evento: Evento): Promise<Evento> => {
-    const CREAR_EVENTO_URL = '/eventos/crearEvento';
+    const CREAR_EVENTO_URL = '/eventos';
     const response = await eventosApi.post(CREAR_EVENTO_URL, evento, {
         withCredentials: true,
     });
@@ -23,7 +23,7 @@ export const crearEventos = async (evento: Evento): Promise<Evento> => {
 };
 
 export const editarEvento = async (id: string, evento: Evento): Promise<Evento> => {
-    const EDITAR_EVENTO_URL = `/eventos/editar/${id}`;
+    const EDITAR_EVENTO_URL = `/eventos/${id}`;
     const response = await eventosApi.put(EDITAR_EVENTO_URL, evento, {
         withCredentials: true,
     });
@@ -32,7 +32,7 @@ export const editarEvento = async (id: string, evento: Evento): Promise<Evento> 
 };
 
 export const borrarEvento = async (id: string): Promise<void> => {
-    const BORRAR_EVENTO_URL = `/eventos/borrar/${id}`;
+    const BORRAR_EVENTO_URL = `/eventos/${id}`;
     const response = await eventosApi.delete(BORRAR_EVENTO_URL, {
         withCredentials: true,
     });
