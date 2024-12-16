@@ -65,14 +65,14 @@ export const EventoDetalle = () => {
                 <h3>Capacidad: {evento.capacidad} lugares</h3>
             </div>
             <button 
-                className="btn btn-primary btn-lg" 
+                className="btn btn-primary btn-lg me-2" 
                 type="button"
                 onClick={handleInscripcion}
             >
                 Inscribirse
             </button>
             <button
-                className="btn btn-secondary btn-lg"
+                className="btn btn-primary btn-lg me-2"
                 type="button"
                 onClick={handleEditarEvento}
             >

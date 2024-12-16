@@ -23,7 +23,7 @@ export const crearEventos = async (evento: Evento): Promise<Evento> => {
 };
 
 export const editarEvento = async (id: string, evento: Evento): Promise<Evento> => {
-    const EDITAR_EVENTO_URL = `/eventos/editar/${id}`;
+    const EDITAR_EVENTO_URL = `/eventos/${id}`;
     const response = await eventosApi.put(EDITAR_EVENTO_URL, evento, {
         withCredentials: true,
     });
