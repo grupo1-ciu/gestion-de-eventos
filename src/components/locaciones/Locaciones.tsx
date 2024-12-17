@@ -20,7 +20,7 @@ export const Locaciones: React.FC = () => {
   const obtenerToken = (): string | null => {
     const userString = sessionStorage.getItem('user');
     if (!userString) {
-      console.error('No se encontró el usuario en sessionStorage.');
+      console.error('No se encontro el usuario en sessionStorage.');
       return null;
     }
 
@@ -87,6 +87,7 @@ export const Locaciones: React.FC = () => {
   return (
     <div className="locaciones-container">
       <h1>Gestión de Locaciones    <LocacionBotonCrear className="btn btn-success" titulo="Crear" /></h1>
+      {/*no se como hacer tipo una barrita  sola q haga las dos cosas, debe ser una boludes pero no segui intentando*/}
       <div className="locanciones-actions">
         <input
           type="text"
