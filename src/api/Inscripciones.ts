@@ -6,7 +6,7 @@ export const listarInscripcionesPorEmail = async (email: string) => {
   const URL = INSCRIPCIONES_URL+'/'+email;
 
   const response = await eventosApi.get(URL, {
-    withCredentials: true,
+    withCredentials: false,
   });
 
   return response.data;

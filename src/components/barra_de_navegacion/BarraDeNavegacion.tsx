@@ -6,10 +6,13 @@ import { AuthContext } from "../../context/AuthContext";
 export const BarraDeNavegacion = () => {
 
     const { logout } = useContext(AuthContext);
+    const usuario = useContext(AuthContext);
 
     const handleLogout = () => {
         logout();
     };
+
+    const isAdmin =() => usuario.userCredential?.roles.includes('ROLE_ADMIN ');
 
     return(
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -17,7 +20,9 @@ export const BarraDeNavegacion = () => {
             <div className="navbar-nav container-fuild">
                 <BarraDeNavegacionLink linkContent="Inscripciones" linkHref="/inscripciones" />
                 <BarraDeNavegacionLink linkContent="Eventos" linkHref="/eventos" />
+                {isAdmin() &&(
                 <BarraDeNavegacionLink linkContent="Gestión de Locaciones" linkHref="/locaciones" />
+                )}
                 <div className="container-btn">
                     <button 
                         type="button" 
