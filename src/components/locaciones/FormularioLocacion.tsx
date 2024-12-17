@@ -26,22 +26,22 @@ export const FormularioLocacion = () => {
       throw error;
     }
   };
-
+/*acoradrme de cambiar de lugar si llego*/
   useEffect(() => {
     if (idLocacion) {
-      const fetchLocacionDetails = async () => {
+      const detallesDeLocacion = async () => {
         try {
           const data = await obtenerLocacion(idLocacion);
           setLocacion(data);
         } catch (error) {
-          console.error('Error al obtener los detalles de la locación:', error);
+          console.error('Error al obtener los detalles de la locacoin:', error);
         }
       };
-      fetchLocacionDetails();
+      detallesDeLocacion();
     }
   }, [idLocacion]);
 
-  // Manejo de inputs
+  /*estos handles manejan la vida (?*/
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
     setLocacion(prevLocacion => ({
@@ -62,7 +62,7 @@ export const FormularioLocacion = () => {
       navigate('/locaciones');
     } catch (error) {
       console.error('Error al guardar la locacion:', error);
-      alert('Error al guardar la locacion. Inténtalo de nuevo.');
+      alert('Error al guardar la locacion. Intentalo de nuevo.');
     }
   };
 
@@ -91,7 +91,7 @@ export const FormularioLocacion = () => {
             onChange={handleChange}
           />
         </label>
-        <button type="submit">{idLocacion ? 'Guardar Cambios' : 'Crear Locación'}</button>
+        <button type="submit">{idLocacion ? 'Guardar Cambios' : 'Crear Locacion'}</button>
       </form>
     </div>
   );
