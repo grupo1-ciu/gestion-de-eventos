@@ -3,4 +3,6 @@ export interface UserCredential {
     apellido: string;
     roles : string[];
     token : string;
+    email : string;
+    isAuthenticated: boolean;
 }
