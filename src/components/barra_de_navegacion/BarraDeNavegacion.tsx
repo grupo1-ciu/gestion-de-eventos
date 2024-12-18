@@ -4,24 +4,22 @@ import './navbar.css';
 import { AuthContext } from "../../context/AuthContext";
 
 export const BarraDeNavegacion = () => {
-
-    const { logout } = useContext(AuthContext);
-    const usuario = useContext(AuthContext);
+    const { logout, userCredential } = useContext(AuthContext);
 
     const handleLogout = () => {
         logout();
     };
 
-    const isAdmin =() => usuario.userCredential?.roles.includes('ROLE_ADMIN ');
+    const isAdmin = () => userCredential?.roles.includes('ROLE_ADMIN');
 
-    return(
+    return (
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
-            <a className="navbar-brand">EventosTP</a>
+            <a className="navbar-brand" href="#">EventosTP</a>
             <div className="navbar-nav container-fuild">
                 <BarraDeNavegacionLink linkContent="Inscripciones" linkHref="/inscripciones" />
                 <BarraDeNavegacionLink linkContent="Eventos" linkHref="/eventos" />
-                {isAdmin() &&(
-                <BarraDeNavegacionLink linkContent="Gestión de Locaciones" linkHref="/locaciones" />
+                {isAdmin() && (
+                    <BarraDeNavegacionLink linkContent="Gestion de Locaciones" linkHref="/locaciones" />
                 )}
                 <div className="container-btn">
                     <button 

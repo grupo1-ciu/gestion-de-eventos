@@ -1,47 +1,52 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { obtenerLocaciones, buscarLocaciones, eliminarLocacion, filtrarLocaciones } from '../../api/Locaciones';
+import { buscarLocaciones, eliminarLocacion, filtrarLocaciones, obtenerLocaciones } from '../../api/Locaciones';
 import { Locacion } from '../../model/Locacion';
-import './Locaciones.css';
 import { AuthContext } from '../../context/AuthContext';
-import { LocacionBotonCrear } from './LocacionBotonCrear';
-import { LocacionBotonCancelar } from './LocacionBotonCancelar';
-import { LocacionBotonActualizar } from './LocacionBotonActualizar';
 import { useNavigate } from 'react-router-dom';
+import { ListaLocaciones } from './ListaLocaciones';
+import './Locaciones.css';
+
 
 export const Locaciones: React.FC = () => {
   const [locaciones, setLocaciones] = useState<Locacion[]>([]);
   const [page, setPage] = useState(0);
-  const [isAdmin, setIsAdmin] = useState(true);
-  const [search, setSearch] = useState('');
+  const [totalItems, setTotalItems] = useState(0); 
   const [capacity, setCapacity] = useState<number | undefined>(undefined);
+  const [search, setSearch] = useState('');
+  const [pageSize] = useState(5); 
   const { userCredential } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  const isAdmin = userCredential?.roles?.includes('ROLE_ADMIN') || false;
+
   const obtenerToken = (): string | null => {
     const userString = sessionStorage.getItem('user');
-    if (!userString) {
-      console.error('No se encontro el usuario en sessionStorage.');
-      return null;
-    }
+
+    if (!userString) return null;
 
     try {
       const user = JSON.parse(userString);
       return user.token || null;
-    } catch (error) {
-      console.error('Error al parsear la informacion del usuario:', error);
+    } catch {
       return null;
     }
   };
 
-  useEffect(() => {
-    const token = obtenerToken();
-    if (!token) return;
-    if (isAdmin) {
-      obtenerLocaciones(page, 10)
-        .then(setLocaciones)
-        .catch((error) => console.error('Error al obtener locaciones:', error));
+  const cargarLocaciones = async (pagina: number) => {
+    try {
+      const todasLasLocaciones = await obtenerLocaciones(0, 1000);
+      const inicio = pagina * pageSize;
+      const fin = inicio + pageSize;
+      setLocaciones(todasLasLocaciones.slice(inicio, fin));
+      setTotalItems(todasLasLocaciones.length);
+    } catch (error) {
+      console.error('Error al cargar locaciones:', error);
     }
-  }, [page, isAdmin]);
+  };
+  
+  useEffect(() => {
+    cargarLocaciones(page);
+  }, [page]);
 
   const handleSearch = async () => {
     try {
@@ -63,6 +68,7 @@ export const Locaciones: React.FC = () => {
     }
   };
 
+
   const handleEliminarLocacion = async (idLocacion: string) => {
     const token = obtenerToken();
     if (!token) return;
@@ -75,58 +81,25 @@ export const Locaciones: React.FC = () => {
     }
   };
 
-
   const handleEditarLocacion = (idLocacion: string) => {
     navigate(`/editar-locacion/${idLocacion}`);
   };
 
-  const tieneEstacionamiento = (tieneEstacionamiento: boolean) => {
-    return tieneEstacionamiento ? 'Sí' : 'No';
-  };
-
   return (
-    <div className="locaciones-container">
-      <h1>Gestión de Locaciones    <LocacionBotonCrear className="btn btn-success" titulo="Crear" /></h1>
-      {/*no se como hacer tipo una barrita  sola q haga las dos cosas, debe ser una boludes pero no segui intentando*/}
-      <div className="locanciones-actions">
-        <input
-          type="text"
-          placeholder="Buscar locaciones por nombre"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-        <input
-          type="number"
-          placeholder="Filtrar por capacidad"
-          value={capacity || ''}
-          onChange={(e) => setCapacity(Number(e.target.value) || undefined)}
-        />
-        <button onClick={handleSearch}>Buscar</button>
-      </div>
-      <ul className="locaciones-list">
-        {locaciones.map((locacion) => (
-          <li key={locacion.id} className="locacion-item">
-            <h2>{locacion.nombre}</h2>
-            <p>{locacion.direccion}</p>
-            <p>Capacidad: {locacion.capacidadMaxima}</p>
-            <p>Estacionamiento: {tieneEstacionamiento(locacion.tieneEstacionamiento)}</p>
-            <div className="locacion-actions">
-              <LocacionBotonActualizar idLocacion={locacion.id} onEdit={handleEditarLocacion} />
-              <LocacionBotonCancelar idLocacion={locacion.id} onCancel={handleEliminarLocacion} />
-            </div>
-          </li>
-        ))}
-      </ul>
-      <div className="locaciones-pagination">
-        <button onClick={() => setPage((prev) => Math.max(prev - 1, 0))} disabled={page === 0}>
-          ←
-        </button>
-        <span>Página {page + 1}</span>
-        <button onClick={() => setPage((prev) => prev + 1)}>→</button>
-      </div>
-      <button className="btn-back" onClick={() => navigate('/inscripciones')}>
-        Volver
-      </button>
-    </div>
+
+<ListaLocaciones
+      locaciones={locaciones}
+      isAdmin={isAdmin}
+      search={search}
+      setSearch={setSearch}
+      capacity={capacity}
+      setCapacity={setCapacity}
+      handleSearch={handleSearch}
+      handleEditarLocacion={handleEditarLocacion}
+      handleEliminarLocacion={handleEliminarLocacion}
+      page={page}
+      setPage={setPage}
+      navigate={navigate}
+    />
   );
 };

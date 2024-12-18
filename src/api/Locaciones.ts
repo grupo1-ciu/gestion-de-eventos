@@ -60,7 +60,7 @@ export const eliminarLocacion = async (idLocacion: string): Promise<void> => {
     await axios.delete(`${BASE_URL}/${idLocacion}`, config);
     console.log(`Locación con ID ${idLocacion} eliminada.`);
   } catch (error) {
-    console.error(`Error al eliminar la locación con ID ${idLocacion}:`, error);
+    console.error(`Error al eliminar la locacion con ID ${idLocacion}:`, error);
     throw error;
   }
 };
@@ -84,7 +84,7 @@ export const obtenerLocacion = async (idLocacion: string): Promise<Locacion> => 
   }
 };
 
-export const buscarLocaciones = async (nombre: string): Promise<Locacion[]> => {
+export const buscarLocaciones = async (nombre: string, capacity?: number | undefined): Promise<Locacion[]> => {
   const config = obtenerConfiguracion();
   return realizarPeticion<Locacion[]>(`${BASE_URL}/buscar?nombre=${encodeURIComponent(nombre)}`, config);
 };
