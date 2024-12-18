@@ -21,7 +21,9 @@ export const Locaciones: React.FC = () => {
 
   const obtenerToken = (): string | null => {
     const userString = sessionStorage.getItem('user');
+
     if (!userString) return null;
+
     try {
       const user = JSON.parse(userString);
       return user.token || null;
@@ -84,6 +86,7 @@ export const Locaciones: React.FC = () => {
   };
 
   return (
+
 <ListaLocaciones
       locaciones={locaciones}
       isAdmin={isAdmin}

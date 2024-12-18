@@ -4,6 +4,8 @@ import { faEdit } from "@fortawesome/free-regular-svg-icons";
 import { useNavigate } from 'react-router-dom';
 import './LocacionBotonActualizar.css';
 
+/*Entiendo que podria hacer un boton generico y aca meter solo la logica pero no*/
+
 type LocacionBotonActualizarProps = {
     idLocacion: string;
     onEdit: ((idLocacion: string) => void);
