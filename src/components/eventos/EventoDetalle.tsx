@@ -14,6 +14,8 @@ export const EventoDetalle = () => {
     const [mensaje, setMensaje] = useState('');
     const navigate = useNavigate();
 
+    const isAdmin = userCredential.roles?.includes("ROLE_ADMIN");
+
     const formatFecha = (fecha: string) => {
         const date = new Date(fecha);
         const splits = date.toLocaleString().split(',');
@@ -72,17 +74,21 @@ export const EventoDetalle = () => {
             >
                 Inscribirse
             </button>
-            <button
-                className="btn btn-primary btn-lg me-2"
-                type="button"
-                onClick={handleEditarEvento}
-            >
-                Editar
-            </button>
-            <BotonBorrarEvento
-                idEvento={id}
-                onMensaje={setMensaje}
-            />
+            {isAdmin && (
+                <>
+                    <button
+                        className="btn btn-primary btn-lg me-2"
+                        type="button"
+                        onClick={handleEditarEvento}
+                    >
+                        Editar
+                    </button>
+                    <BotonBorrarEvento
+                        idEvento={id}
+                        onMensaje={setMensaje}
+                    />
+                </>
+            )}
             <div className="mensaje-container">
                 {mensaje === '' ? '' : <h4>{mensaje}</h4>}
             </div>
